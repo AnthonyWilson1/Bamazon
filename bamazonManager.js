@@ -35,6 +35,7 @@ function viewLowInventory() {
 
 function addToInventory(ID, Amount){
     connection.query(`SELECT stock_quantity FROM products WHERE item_id = ${ID}`, (error,response) => {
+        if (error) throw error
          var stock = response[0].stock_quantity
          var newAmount = stock + Amount   
          connection.query(`UPDATE products SET stock_quantity = ${newAmount} WHERE item_id = ${ID}`, (error, results) => {
